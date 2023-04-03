@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 
 import './App.css';
+import { BlsAccount } from 'ethdk';
 import Header from './components/header';
 import Address from './components/address';
 import Send from './components/send';
@@ -24,16 +25,27 @@ function App() {
 
   const query = useQuery();
 
-  if (query.get('wallet') === 'bls-team' && account !== BLS_TEAM_PK) {
-    setPrivateKey(BLS_TEAM_PK);
-  }
+  useEffect(() => {
+    const getNewPrivateKey = async () => {
+      const pk = await BlsAccount.generatePrivateKey();
+      setPrivateKey(pk);
+    };
+
+    if (query.get('wallet') === 'bls-team' && account !== BLS_TEAM_PK) {
+      setPrivateKey(BLS_TEAM_PK);
+    } else if (account === '') {
+      getNewPrivateKey();
+    }
+  }, [account, query]);
 
   useEffect(() => {
     const getUserAddress = async () => {
       const address = await getAddress();
       setAccount(address);
     };
-    getUserAddress();
+    if (account !== '') {
+      getUserAddress();
+    }
   }, [setAccount]);
 
   useEffect(() => {

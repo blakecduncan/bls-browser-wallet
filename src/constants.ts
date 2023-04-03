@@ -13,7 +13,7 @@ type NetworksType = {
 export const NETWORKS: NetworksType = {
   localhost: {
     name: 'localhost',
-    chainId: '31337',
+    chainId: '1337',
     rpcUrl: 'http://localhost:8545',
     aggregatorUrl: 'http://localhost:3000',
     verificationGateway: '0x689A095B4507Bfa302eef8551F90fB322B3451c6',

@@ -17,7 +17,7 @@ export const useLocalStore = create<LocalStoreType, any>(
     () => ({
       network: 'arbitrumGoerli',
       account: '',
-      privateKey: ethers.Wallet.createRandom().privateKey,
+      privateKey: '',
       recoverySalt: {},
     }),
     {
